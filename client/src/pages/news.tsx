@@ -103,7 +103,6 @@ export default function News() {
         </Button>
       </div>
 
-      {/* Statistics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <StatsCard
           title="Total Berita"
@@ -131,7 +130,6 @@ export default function News() {
         />
       </div>
 
-      {/* News Slider Info */}
       <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-200">
         <div className="flex items-start space-x-4">
           <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center">
@@ -152,7 +150,6 @@ export default function News() {
         </div>
       </div>
 
-      {/* Create News Form */}
       {showCreateForm && (
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
           <h3 className="text-lg font-semibold text-slate-900 mb-4">Buat Berita Baru</h3>
@@ -219,7 +216,6 @@ export default function News() {
         </div>
       )}
 
-      {/* News Table */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <h3 className="text-lg font-semibold text-slate-900 mb-4">Daftar Berita</h3>
         

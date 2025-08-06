@@ -126,7 +126,6 @@ export default function XpBoosters() {
         />
       </div>
 
-      {/* XP Booster Info */}
       <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-6 border border-yellow-200">
         <div className="flex items-start space-x-4">
           <div className="w-12 h-12 bg-yellow-600 rounded-lg flex items-center justify-center">
@@ -148,7 +147,6 @@ export default function XpBoosters() {
         </div>
       </div>
 
-      {/* Give Booster Form */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <h3 className="text-lg font-semibold text-slate-900 mb-4">Kasih XP Booster</h3>
         
@@ -191,7 +189,6 @@ export default function XpBoosters() {
         </div>
       </div>
 
-      {/* Boosters Table */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <h3 className="text-lg font-semibold text-slate-900 mb-4">Daftar XP Boosters</h3>
         

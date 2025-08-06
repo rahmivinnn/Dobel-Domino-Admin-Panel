@@ -111,7 +111,6 @@ export default function PaymentGateway() {
         <p className="text-slate-600 mt-1">Transaksi dan top up permata pemain</p>
       </div>
 
-      {/* Statistics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <StatsCard
           title="Total Transaksi"
@@ -139,7 +138,6 @@ export default function PaymentGateway() {
         />
       </div>
 
-      {/* Payment Report Info */}
       <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200">
         <div className="flex items-start space-x-4">
           <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
@@ -160,7 +158,6 @@ export default function PaymentGateway() {
         </div>
       </div>
 
-      {/* Filters */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>

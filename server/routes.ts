@@ -13,7 +13,6 @@ import {
 } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Dashboard Stats
   app.get("/api/dashboard/stats", async (req, res) => {
     try {
       const stats = await storage.getDashboardStats();
@@ -23,7 +22,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Players
   app.get("/api/players", async (req, res) => {
     try {
       const { tier, status, search, limit = "50", offset = "0" } = req.query;

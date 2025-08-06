@@ -15,15 +15,15 @@ export const players = pgTable("players", {
   email: text("email").notNull(),
   level: integer("level").default(1),
   xp: integer("xp").default(0),
-  coins: integer("coins").default(0), // Kosongkan dulu
-  gems: integer("gems").default(0), // Kosongkan dulu (permata)
+  coins: integer("coins").default(0),
+  gems: integer("gems").default(0),
   rankedPoints: integer("ranked_points").default(0),
   tier: text("tier").default("Bronze"),
   totalWins: integer("total_wins").default(0),
   totalLosses: integer("total_losses").default(0),
-  status: text("status").default("active"), // active, banned, suspended
-  unityPlayerId: text("unity_player_id"), // ID dari Unity
-  minLevelForRanked: integer("min_level_for_ranked").default(5), // Level minimum untuk akses ranked
+  status: text("status").default("active"),
+  unityPlayerId: text("unity_player_id"),
+  minLevelForRanked: integer("min_level_for_ranked").default(5),
   lastActive: timestamp("last_active").defaultNow(),
   createdAt: timestamp("created_at").defaultNow(),
 });
@@ -31,16 +31,16 @@ export const players = pgTable("players", {
 export const tournaments = pgTable("tournaments", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   name: text("name").notNull(),
-  type: text("type").notNull(), // regular, elite, special
+  type: text("type").notNull(),
   entryFee: integer("entry_fee").default(0),
-  entryFeeCurrency: text("entry_fee_currency").default("coins"), // coins, gems
+  entryFeeCurrency: text("entry_fee_currency").default("coins"),
   maxParticipants: integer("max_participants").notNull(),
   currentParticipants: integer("current_participants").default(0),
   prizePool: jsonb("prize_pool").notNull(),
-  status: text("status").default("scheduled"), // scheduled, active, completed, cancelled
+  status: text("status").default("scheduled"),
   startTime: timestamp("start_time").notNull(),
   endTime: timestamp("end_time"),
-  duration: integer("duration").notNull(), // in hours
+  duration: integer("duration").notNull(),
   winner: text("winner"),
   createdAt: timestamp("created_at").defaultNow(),
 });
