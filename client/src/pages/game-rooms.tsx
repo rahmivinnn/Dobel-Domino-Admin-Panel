@@ -114,15 +114,15 @@ export default function GameRooms() {
       {/* Page Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Game Rooms - Dobel Domino</h1>
-          <p className="text-slate-600 mt-1">Kelola ruang permainan untuk berbagai mode</p>
+          <h1 className="text-2xl font-bold text-slate-900">Ruang Game</h1>
+          <p className="text-slate-600 mt-1">Atur room training, ranked, dan tournament</p>
         </div>
         <Button 
           onClick={() => setShowCreateForm(!showCreateForm)}
           className="bg-blue-600 hover:bg-blue-700"
         >
           <Plus className="w-4 h-4 mr-2" />
-          Buat Room Baru
+          Tambah Room
         </Button>
       </div>
 

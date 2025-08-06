@@ -24,33 +24,34 @@ export default function Dashboard() {
   }
 
   return (
-    <div>
-      {/* Statistics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold text-slate-900">Beranda</h1>
+        <p className="text-slate-600 mt-1">Ringkasan aktivitas game hari ini</p>
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatsCard
           title="Total Pemain"
-          value={(stats?.totalPlayers || 0).toLocaleString()}
+          value={((stats as any)?.totalPlayers || 0).toLocaleString()}
           icon={Users}
           iconBgColor="bg-blue-100"
-          trend={{ value: "+12% dari bulan lalu", isPositive: true }}
         />
         <StatsCard
-          title="Pemain Aktif Hari Ini"
-          value={(stats?.activePlayers || 0).toLocaleString()}
+          title="Yang Online"
+          value={((stats as any)?.activePlayers || 0).toLocaleString()}
           icon={TrendingUp}
           iconBgColor="bg-green-100"
-          trend={{ value: "+8% dari kemarin", isPositive: true }}
         />
         <StatsCard
-          title="Total Permata"
-          value={`${((stats?.totalGems || 0) / 1000000).toFixed(1)}M`}
+          title="Permata"
+          value={((stats as any)?.totalGems || 0).toLocaleString()}
           icon={Gem}
           iconBgColor="bg-purple-100"
-          subtitle="Premium currency"
         />
         <StatsCard
-          title="Total Koin"
-          value={`${((stats?.totalCoins || 0) / 1000000).toFixed(1)}M`}
+          title="Koin Game"
+          value={((stats as any)?.totalCoins || 0).toLocaleString()}
           icon={Coins}
           iconBgColor="bg-amber-100"
           subtitle="Basic currency"

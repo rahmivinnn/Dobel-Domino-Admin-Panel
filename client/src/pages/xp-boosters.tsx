@@ -94,8 +94,8 @@ export default function XpBoosters() {
     <div className="space-y-6">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">XP Boosters - Dobel Domino</h1>
-        <p className="text-slate-600 mt-1">Kelola XP booster untuk pemain dengan harga Rp 10.000/7 hari</p>
+        <h1 className="text-2xl font-bold text-slate-900">XP Booster</h1>
+        <p className="text-slate-600 mt-1">Bonus XP 2x untuk pemain (Rp 10.000/7 hari)</p>
       </div>
 
       {/* Statistics Cards */}
@@ -133,16 +133,16 @@ export default function XpBoosters() {
             <Zap className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-slate-900">XP Booster System</h3>
+            <h3 className="text-lg font-semibold text-slate-900">Info XP Booster</h3>
             <p className="text-slate-600 mt-1">
-              XP Booster memberikan 2x XP untuk semua aktivitas training dan ranked. Harga tetap Rp 10.000 untuk durasi 7 hari.
-              Tidak ada transaksi pulsa, pembayaran melalui payment gateway yang terintegrasi.
+              XP jadi 2x lipat untuk training dan ranked. Harga tetap 10 ribu untuk 7 hari.
+              Bayar lewat gateway, gak pakai pulsa.
             </p>
             <div className="mt-3 flex items-center space-x-4 text-sm text-slate-500">
-              <span>• Multiplier: 2x XP</span>
-              <span>• Durasi: 7 hari</span>
-              <span>• Harga: Rp 10.000</span>
-              <span>• Mode: Training & Ranked</span>
+              <span>• XP 2x lipat</span>
+              <span>• 7 hari</span>
+              <span>• Rp 10.000</span>
+              <span>• Training & Ranked</span>
             </div>
           </div>
         </div>
@@ -150,7 +150,7 @@ export default function XpBoosters() {
 
       {/* Give Booster Form */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-        <h3 className="text-lg font-semibold text-slate-900 mb-4">Berikan XP Booster</h3>
+        <h3 className="text-lg font-semibold text-slate-900 mb-4">Kasih XP Booster</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
           <div>

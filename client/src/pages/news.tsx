@@ -91,15 +91,15 @@ export default function News() {
       {/* Page Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">News & Berita - Dobel Domino</h1>
-          <p className="text-slate-600 mt-1">Kelola berita dan pengumuman untuk slider di game</p>
+          <h1 className="text-2xl font-bold text-slate-900">Berita</h1>
+          <p className="text-slate-600 mt-1">Update dan pengumuman untuk pemain</p>
         </div>
         <Button 
           onClick={() => setShowCreateForm(!showCreateForm)}
           className="bg-blue-600 hover:bg-blue-700"
         >
           <Plus className="w-4 h-4 mr-2" />
-          Buat Berita Baru
+          Tulis Berita
         </Button>
       </div>
 
@@ -138,15 +138,15 @@ export default function News() {
             <Newspaper className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-slate-900">Slider Berita</h3>
+            <h3 className="text-lg font-semibold text-slate-900">Info Berita</h3>
             <p className="text-slate-600 mt-1">
-              Berita akan ditampilkan di slider sebelah kiri dalam game. Sesuaikan prioritas untuk mengatur urutan tampilan.
-              Gunakan gambar dengan rasio 16:9 untuk hasil terbaik.
+              Berita muncul di slider kiri game. Atur prioritas untuk urutan tampilan.
+              Pakai gambar 16:9 biar bagus.
             </p>
             <div className="mt-3 flex items-center space-x-4 text-sm text-slate-500">
-              <span>• Posisi: Sebelah kiri game</span>
-              <span>• Auto-scroll: Enabled</span>
-              <span>• Recommended: 4-6 berita aktif</span>
+              <span>• Posisi slider kiri</span>
+              <span>• Auto scroll</span>
+              <span>• Max 4-6 berita</span>
             </div>
           </div>
         </div>

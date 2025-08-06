@@ -107,8 +107,8 @@ export default function PaymentGateway() {
     <div className="space-y-6">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Payment Gateway - Dobel Domino</h1>
-        <p className="text-slate-600 mt-1">Kelola transaksi pembayaran dan top up permata</p>
+        <h1 className="text-2xl font-bold text-slate-900">Pembayaran</h1>
+        <p className="text-slate-600 mt-1">Transaksi dan top up permata pemain</p>
       </div>
 
       {/* Statistics Cards */}
@@ -146,15 +146,15 @@ export default function PaymentGateway() {
             <CreditCard className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-slate-900">Sistem Payment Gateway</h3>
+            <h3 className="text-lg font-semibold text-slate-900">Info Pembayaran</h3>
             <p className="text-slate-600 mt-1">
-              Tidak ada transaksi pulsa. Sistem ini khusus untuk top up permata dan XP booster dengan harga Rp 10.000 untuk 7 hari.
-              Semua transaksi akan menghasilkan laporan otomatis untuk tracking dan audit.
+              Transaksi khusus untuk top up permata dan XP booster. Harga XP booster tetap Rp 10.000 untuk 7 hari.
+              Semua pembayaran tercatat otomatis untuk laporan.
             </p>
             <div className="mt-3 flex items-center space-x-4 text-sm text-slate-500">
-              <span>• Payment Gateway: Aktif</span>
-              <span>• Auto Report: Enabled</span>
-              <span>• XP Booster: Rp 10.000/7 hari</span>
+              <span>• Gateway aktif</span>
+              <span>• Laporan otomatis</span>
+              <span>• XP Booster: 10rb/7 hari</span>
             </div>
           </div>
         </div>

@@ -2,11 +2,13 @@
 
 ## Overview
 
-This is a comprehensive gaming admin dashboard built for managing players, tournaments, currency systems, and game mechanics. The application provides a complete backend management interface for a gaming platform with features like player management, tournament administration, currency transactions, ranking systems, rewards management, and anti-cheat monitoring.
+This is a comprehensive gaming admin dashboard built for "Dobel Domino" game with Unity integration. The application provides a complete backend management interface focused on XP progression system, payment gateway for XP boosters, four distinct game room types, news management, and anti-cheat monitoring. Currency (coins/gems) totals are set to zero to emphasize XP-based progression.
 
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
+UI Language: Natural Indonesian language, avoid AI-sounding or overly formal text.
+Focus: Game admin panel should feel human and casual, not corporate or AI-generated.
 
 ## System Architecture
 
@@ -34,13 +36,18 @@ Preferred communication style: Simple, everyday language.
 
 ### Key Data Models
 - **Users**: Authentication and basic user management
-- **Players**: Gaming profiles with stats, currency, and progression
+- **Players**: Gaming profiles with Unity integration, XP progression, zero coins/gems
 - **Tournaments**: Event management with entry fees and prize pools
-- **Currency Transactions**: Financial tracking for coins and gems
+- **Currency Transactions**: Financial tracking for coins and gems (legacy)
 - **Ranking System**: Tier-based progression with seasonal configs
 - **Rewards**: Daily rewards and level-based incentives
 - **Anti-Cheat**: Security monitoring and violation tracking
 - **Events**: Special promotions and multiplier events
+- **Game Rooms**: Four types - Training Single/Double, Ranked, Tournament, Pairing
+- **Payment Transactions**: Gateway integration for XP booster purchases (Rp 10,000/7 days)
+- **XP Boosters**: 2x XP multiplier system with 7-day duration
+- **News**: Slider content for in-game announcements
+- **Pairing Services**: Government licensing (Kemensos) integration
 
 ### Authentication & Authorization
 - Session-based authentication using express-session

@@ -17,18 +17,18 @@ import {
 } from "lucide-react";
 
 const menuItems = [
-  { path: "/", label: "Dashboard", icon: Home },
+  { path: "/", label: "Beranda", icon: Home },
   { path: "/players", label: "Pemain", icon: Users },
   { path: "/currency", label: "Mata Uang", icon: Coins },
   { path: "/ranking", label: "Ranking", icon: Trophy },
   { path: "/tournaments", label: "Turnamen", icon: Calendar },
-  { path: "/rewards", label: "Rewards", icon: Gift },
-  { path: "/leaderboard", label: "Leaderboard", icon: TrendingUp },
-  { path: "/monitoring", label: "Monitoring", icon: ShieldCheck },
-  { path: "/game-rooms", label: "Game Rooms", icon: Gamepad2 },
-  { path: "/payment-gateway", label: "Payment Gateway", icon: CreditCard },
+  { path: "/rewards", label: "Hadiah", icon: Gift },
+  { path: "/leaderboard", label: "Papan Skor", icon: TrendingUp },
+  { path: "/monitoring", label: "Pantau", icon: ShieldCheck },
+  { path: "/game-rooms", label: "Ruang Game", icon: Gamepad2 },
+  { path: "/payment-gateway", label: "Pembayaran", icon: CreditCard },
   { path: "/news", label: "Berita", icon: Newspaper },
-  { path: "/xp-boosters", label: "XP Boosters", icon: Zap },
+  { path: "/xp-boosters", label: "XP Booster", icon: Zap },
 ];
 
 export default function Sidebar() {
@@ -43,7 +43,7 @@ export default function Sidebar() {
           </div>
           <div>
             <h1 className="text-lg font-bold">Dobel Domino</h1>
-            <p className="text-sm text-slate-400">Admin Panel</p>
+            <p className="text-sm text-slate-400">Kontrol Game</p>
           </div>
         </div>
       </div>
