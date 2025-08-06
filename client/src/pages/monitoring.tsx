@@ -44,8 +44,8 @@ export default function Monitoring() {
     queryFn: async () => {
       const params = new URLSearchParams({
         limit: "20",
-        ...(filters.riskLevel && { riskLevel: filters.riskLevel }),
-        ...(filters.status && { status: filters.status }),
+        ...(filters.riskLevel && filters.riskLevel !== "all" && { riskLevel: filters.riskLevel }),
+        ...(filters.status && filters.status !== "all" && { status: filters.status }),
       });
       const response = await fetch(`/api/anticheat/logs?${params}`);
       return response.json();
@@ -304,7 +304,7 @@ export default function Monitoring() {
                 <SelectValue placeholder="Semua Risk Level" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Semua Deteksi</SelectItem>
+                <SelectItem value="all">Semua Deteksi</SelectItem>
                 <SelectItem value="high">High Risk</SelectItem>
                 <SelectItem value="medium">Medium Risk</SelectItem>
                 <SelectItem value="low">Low Risk</SelectItem>
@@ -315,7 +315,7 @@ export default function Monitoring() {
                 <SelectValue placeholder="Semua Status" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Semua Status</SelectItem>
+                <SelectItem value="all">Semua Status</SelectItem>
                 <SelectItem value="under_review">Under Review</SelectItem>
                 <SelectItem value="resolved">Resolved</SelectItem>
                 <SelectItem value="ignored">Ignored</SelectItem>

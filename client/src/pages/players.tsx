@@ -40,8 +40,8 @@ export default function Players() {
         limit: "10",
         offset: (page * 10).toString(),
         ...(filters.search && { search: filters.search }),
-        ...(filters.tier && { tier: filters.tier }),
-        ...(filters.status && { status: filters.status }),
+        ...(filters.tier && filters.tier !== "all" && { tier: filters.tier }),
+        ...(filters.status && filters.status !== "all" && { status: filters.status }),
       });
       const response = await fetch(`/api/players?${params}`);
       return response.json();
@@ -148,7 +148,7 @@ export default function Players() {
               <SelectValue placeholder="Semua Tier" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Semua Tier</SelectItem>
+              <SelectItem value="all">Semua Tier</SelectItem>
               <SelectItem value="Bronze">Bronze</SelectItem>
               <SelectItem value="Silver">Silver</SelectItem>
               <SelectItem value="Gold">Gold</SelectItem>
@@ -163,7 +163,7 @@ export default function Players() {
               <SelectValue placeholder="Semua Status" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Semua Status</SelectItem>
+              <SelectItem value="all">Semua Status</SelectItem>
               <SelectItem value="active">Aktif</SelectItem>
               <SelectItem value="banned">Banned</SelectItem>
               <SelectItem value="suspended">Suspended</SelectItem>

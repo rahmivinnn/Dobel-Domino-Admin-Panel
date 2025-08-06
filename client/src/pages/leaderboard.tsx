@@ -120,7 +120,7 @@ export default function Leaderboard() {
               <SelectValue placeholder="Filter tier" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Semua Tier</SelectItem>
+              <SelectItem value="all">Semua Tier</SelectItem>
               <SelectItem value="Diamond+">Diamond+</SelectItem>
               <SelectItem value="Platinum+">Platinum+</SelectItem>
               <SelectItem value="Gold+">Gold+</SelectItem>
