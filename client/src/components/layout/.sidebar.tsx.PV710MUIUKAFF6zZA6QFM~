@@ -1,0 +1,77 @@
+import { Link, useLocation } from "wouter";
+import { 
+  LayoutDashboard, 
+  Users, 
+  Coins, 
+  Trophy, 
+  Calendar, 
+  Gift, 
+  ListOrdered, 
+  Shield,
+  Gamepad2
+} from "lucide-react";
+
+const menuItems = [
+  { path: "/", label: "Dashboard", icon: LayoutDashboard },
+  { path: "/players", label: "Manajemen Pemain", icon: Users },
+  { path: "/currency", label: "Mata Uang", icon: Coins },
+  { path: "/ranking", label: "Sistem Ranking", icon: Trophy },
+  { path: "/tournaments", label: "Turnamen & Event", icon: Calendar },
+  { path: "/rewards", label: "Sistem Hadiah", icon: Gift },
+  { path: "/leaderboard", label: "Leaderboard", icon: ListOrdered },
+  { path: "/monitoring", label: "Monitoring Anti-Cheat", icon: Shield },
+];
+
+export default function Sidebar() {
+  const [location] = useLocation();
+
+  return (
+    <div className="w-64 bg-slate-900 text-white flex-shrink-0">
+      <div className="p-6">
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
+            <Gamepad2 className="w-6 h-6 text-white" />
+          </div>
+          <div>
+            <h1 className="text-xl font-bold">Domino Admin</h1>
+            <p className="text-slate-400 text-sm">Panel Kontrol</p>
+          </div>
+        </div>
+      </div>
+      
+      <nav className="px-4 space-y-2">
+        {menuItems.map((item) => {
+          const Icon = item.icon;
+          const isActive = location === item.path;
+          
+          return (
+            <Link key={item.path} href={item.path}>
+              <a className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
+                isActive 
+                  ? "bg-blue-600 text-white" 
+                  : "text-slate-300 hover:bg-slate-800 hover:text-white"
+              }`}>
+                <Icon className="w-5 h-5" />
+                <span>{item.label}</span>
+              </a>
+            </Link>
+          );
+        })}
+      </nav>
+      
+      <div className="absolute bottom-0 left-0 right-0 p-4">
+        <div className="bg-slate-800 rounded-lg p-4">
+          <div className="flex items-center space-x-3">
+            <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+              <Users className="w-4 h-4 text-white" />
+            </div>
+            <div>
+              <p className="font-medium text-sm">Admin</p>
+              <p className="text-slate-400 text-xs">Online</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
