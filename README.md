@@ -86,5 +86,5 @@ Focus: Game admin panel should feel human and casual, not corporate or AI-genera
 - **nanoid**: Unique ID generation
 
 ### Development Tools Integration
-- **@replit/vite-plugin-runtime-error-modal**: Development error handling
-- **@replit/vite-plugin-cartographer**: Development tooling integration
+- **Runtime Error Modal Plugin**: Development error handling
+- **Development Cartographer Plugin**: Development tooling integration
