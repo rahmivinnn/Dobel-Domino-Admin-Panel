@@ -15,13 +15,15 @@ export const players = pgTable("players", {
   email: text("email").notNull(),
   level: integer("level").default(1),
   xp: integer("xp").default(0),
-  coins: integer("coins").default(0),
-  gems: integer("gems").default(0),
+  coins: integer("coins").default(0), // Kosongkan dulu
+  gems: integer("gems").default(0), // Kosongkan dulu (permata)
   rankedPoints: integer("ranked_points").default(0),
   tier: text("tier").default("Bronze"),
   totalWins: integer("total_wins").default(0),
   totalLosses: integer("total_losses").default(0),
   status: text("status").default("active"), // active, banned, suspended
+  unityPlayerId: text("unity_player_id"), // ID dari Unity
+  minLevelForRanked: integer("min_level_for_ranked").default(5), // Level minimum untuk akses ranked
   lastActive: timestamp("last_active").defaultNow(),
   createdAt: timestamp("created_at").defaultNow(),
 });
@@ -166,3 +168,106 @@ export type DailyReward = typeof dailyRewards.$inferSelect;
 export type InsertDailyReward = z.infer<typeof insertDailyRewardSchema>;
 export type Event = typeof events.$inferSelect;
 export type InsertEvent = z.infer<typeof insertEventSchema>;
+
+// Game Rooms
+export const gameRooms = pgTable("game_rooms", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  type: text("type").notNull(), // training_single, training_double, ranked, tournament, pairing
+  description: text("description"),
+  minLevel: integer("min_level").default(1),
+  entryFee: integer("entry_fee").default(0),
+  entryFeeCurrency: text("entry_fee_currency").default("coins"), // coins, gems
+  maxPlayers: integer("max_players").default(2),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+// Payment Gateway Transactions
+export const paymentTransactions = pgTable("payment_transactions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  playerId: text("player_id").notNull(),
+  transactionId: text("transaction_id").notNull(),
+  paymentMethod: text("payment_method").notNull(), // payment_gateway, manual_topup
+  amount: integer("amount").notNull(), // dalam rupiah
+  gemsReceived: integer("gems_received").notNull(),
+  status: text("status").default("pending"), // pending, completed, failed, cancelled
+  paymentProof: text("payment_proof"), // URL bukti transfer
+  adminNotes: text("admin_notes"),
+  createdAt: timestamp("created_at").defaultNow(),
+  completedAt: timestamp("completed_at"),
+});
+
+// XP Boosters
+export const xpBoosters = pgTable("xp_boosters", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  playerId: text("player_id").notNull(),
+  multiplier: integer("multiplier").default(2), // 2x XP
+  duration: integer("duration").default(7), // dalam hari
+  price: integer("price").default(10000), // harga dalam rupiah
+  isActive: boolean("is_active").default(true),
+  purchasedAt: timestamp("purchased_at").defaultNow(),
+  expiresAt: timestamp("expires_at"),
+});
+
+// News/Berita
+export const news = pgTable("news", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  title: text("title").notNull(),
+  content: text("content").notNull(),
+  imageUrl: text("image_url"),
+  priority: integer("priority").default(0), // untuk urutan slider
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+// Pairing Services (Izin Kemensos)
+export const pairingServices = pgTable("pairing_services", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  serviceName: text("service_name").notNull(),
+  description: text("description"),
+  licenseCert: text("license_cert"), // Sertifikat izin Kemensos
+  isVerified: boolean("is_verified").default(false),
+  contactInfo: jsonb("contact_info"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+// Insert schemas untuk tabel baru
+export const insertGameRoomSchema = createInsertSchema(gameRooms).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertPaymentTransactionSchema = createInsertSchema(paymentTransactions).omit({
+  id: true,
+  createdAt: true,
+  completedAt: true,
+});
+
+export const insertXpBoosterSchema = createInsertSchema(xpBoosters).omit({
+  id: true,
+  purchasedAt: true,
+  expiresAt: true,
+});
+
+export const insertNewsSchema = createInsertSchema(news).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertPairingServiceSchema = createInsertSchema(pairingServices).omit({
+  id: true,
+  createdAt: true,
+});
+
+// Types untuk tabel baru
+export type GameRoom = typeof gameRooms.$inferSelect;
+export type InsertGameRoom = z.infer<typeof insertGameRoomSchema>;
+export type PaymentTransaction = typeof paymentTransactions.$inferSelect;
+export type InsertPaymentTransaction = z.infer<typeof insertPaymentTransactionSchema>;
+export type XpBooster = typeof xpBoosters.$inferSelect;
+export type InsertXpBooster = z.infer<typeof insertXpBoosterSchema>;
+export type News = typeof news.$inferSelect;
+export type InsertNews = z.infer<typeof insertNewsSchema>;
+export type PairingService = typeof pairingServices.$inferSelect;
+export type InsertPairingService = z.infer<typeof insertPairingServiceSchema>;

@@ -9,7 +9,11 @@ import {
   TrendingUp, 
   ShieldCheck,
   Crown,
-  Target
+  Target,
+  Gamepad2,
+  CreditCard,
+  Newspaper,
+  Zap
 } from "lucide-react";
 
 const menuItems = [
@@ -21,6 +25,10 @@ const menuItems = [
   { path: "/rewards", label: "Rewards", icon: Gift },
   { path: "/leaderboard", label: "Leaderboard", icon: TrendingUp },
   { path: "/monitoring", label: "Monitoring", icon: ShieldCheck },
+  { path: "/game-rooms", label: "Game Rooms", icon: Gamepad2 },
+  { path: "/payment-gateway", label: "Payment Gateway", icon: CreditCard },
+  { path: "/news", label: "Berita", icon: Newspaper },
+  { path: "/xp-boosters", label: "XP Boosters", icon: Zap },
 ];
 
 export default function Sidebar() {
@@ -34,8 +42,8 @@ export default function Sidebar() {
             <Crown className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h1 className="text-lg font-bold">Domino Admin</h1>
-            <p className="text-sm text-slate-400">Panel Kontrol</p>
+            <h1 className="text-lg font-bold">Dobel Domino</h1>
+            <p className="text-sm text-slate-400">Admin Panel</p>
           </div>
         </div>
       </div>

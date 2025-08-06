@@ -347,6 +347,177 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Game Rooms API
+  app.get("/api/game-rooms", async (req, res) => {
+    try {
+      const rooms = await storage.getGameRooms();
+      res.json(rooms);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch game rooms" });
+    }
+  });
+
+  app.post("/api/game-rooms", async (req, res) => {
+    try {
+      const room = await storage.createGameRoom(req.body);
+      res.status(201).json(room);
+    } catch (error) {
+      res.status(400).json({ error: "Failed to create game room" });
+    }
+  });
+
+  app.patch("/api/game-rooms/:id", async (req, res) => {
+    try {
+      const room = await storage.updateGameRoom(req.params.id, req.body);
+      res.json(room);
+    } catch (error) {
+      res.status(400).json({ error: "Failed to update game room" });
+    }
+  });
+
+  // Payment Transactions API
+  app.get("/api/payment-transactions", async (req, res) => {
+    try {
+      const result = await storage.getPaymentTransactions(req.query);
+      res.json(result);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch payment transactions" });
+    }
+  });
+
+  app.post("/api/payment-transactions", async (req, res) => {
+    try {
+      const transaction = await storage.createPaymentTransaction(req.body);
+      res.status(201).json(transaction);
+    } catch (error) {
+      res.status(400).json({ error: "Failed to create payment transaction" });
+    }
+  });
+
+  app.post("/api/payment-transactions/:id/approve", async (req, res) => {
+    try {
+      const transaction = await storage.updatePaymentTransaction(req.params.id, { 
+        status: 'completed',
+        completedAt: new Date() 
+      });
+      res.json(transaction);
+    } catch (error) {
+      res.status(400).json({ error: "Failed to approve payment" });
+    }
+  });
+
+  app.post("/api/payment-transactions/:id/reject", async (req, res) => {
+    try {
+      const transaction = await storage.updatePaymentTransaction(req.params.id, { 
+        status: 'failed',
+        adminNotes: req.body.reason || 'Rejected by admin'
+      });
+      res.json(transaction);
+    } catch (error) {
+      res.status(400).json({ error: "Failed to reject payment" });
+    }
+  });
+
+  app.get("/api/payment-stats", async (req, res) => {
+    try {
+      const transactions = await storage.getPaymentTransactions({});
+      const stats = {
+        total: transactions.total,
+        pending: transactions.transactions?.filter((t: any) => t.status === 'pending').length || 0,
+        completed: transactions.transactions?.filter((t: any) => t.status === 'completed').length || 0,
+        revenue: transactions.transactions?.filter((t: any) => t.status === 'completed')
+          ?.reduce((sum: number, t: any) => sum + (t.amount || 0), 0) || 0
+      };
+      res.json(stats);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch payment stats" });
+    }
+  });
+
+  // XP Boosters API
+  app.get("/api/xp-boosters", async (req, res) => {
+    try {
+      const boosters = await storage.getXpBoosters();
+      res.json(boosters);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch XP boosters" });
+    }
+  });
+
+  app.post("/api/xp-boosters", async (req, res) => {
+    try {
+      const booster = await storage.createXpBooster(req.body);
+      res.status(201).json(booster);
+    } catch (error) {
+      res.status(400).json({ error: "Failed to create XP booster" });
+    }
+  });
+
+  app.patch("/api/xp-boosters/:id", async (req, res) => {
+    try {
+      const booster = await storage.updateXpBooster(req.params.id, req.body);
+      res.json(booster);
+    } catch (error) {
+      res.status(400).json({ error: "Failed to update XP booster" });
+    }
+  });
+
+  // News API
+  app.get("/api/news", async (req, res) => {
+    try {
+      const news = await storage.getNews();
+      res.json(news);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch news" });
+    }
+  });
+
+  app.post("/api/news", async (req, res) => {
+    try {
+      const newsItem = await storage.createNews(req.body);
+      res.status(201).json(newsItem);
+    } catch (error) {
+      res.status(400).json({ error: "Failed to create news" });
+    }
+  });
+
+  app.patch("/api/news/:id", async (req, res) => {
+    try {
+      const newsItem = await storage.updateNews(req.params.id, req.body);
+      res.json(newsItem);
+    } catch (error) {
+      res.status(400).json({ error: "Failed to update news" });
+    }
+  });
+
+  app.delete("/api/news/:id", async (req, res) => {
+    try {
+      await storage.deleteNews(req.params.id);
+      res.status(204).send();
+    } catch (error) {
+      res.status(400).json({ error: "Failed to delete news" });
+    }
+  });
+
+  // Pairing Services API
+  app.get("/api/pairing-services", async (req, res) => {
+    try {
+      const services = await storage.getPairingServices();
+      res.json(services);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch pairing services" });
+    }
+  });
+
+  app.post("/api/pairing-services", async (req, res) => {
+    try {
+      const service = await storage.createPairingService(req.body);
+      res.status(201).json(service);
+    } catch (error) {
+      res.status(400).json({ error: "Failed to create pairing service" });
+    }
+  });
+
   const httpServer = createServer(app);
 
   return httpServer;

@@ -7,7 +7,7 @@ export default function Header() {
     <header className="bg-white border-b border-slate-200 px-6 py-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
-          <h2 className="text-xl font-semibold text-slate-900">Admin Panel Game Domino</h2>
+          <h2 className="text-xl font-semibold text-slate-900">Admin Panel Dobel Domino</h2>
         </div>
         
         <div className="flex items-center space-x-4">

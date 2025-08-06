@@ -113,6 +113,32 @@ export interface IStorage {
     totalBanned: number;
     avgResponseTime: string;
   }>;
+  
+  // Game Rooms
+  getGameRooms(): Promise<any[]>;
+  createGameRoom(data: any): Promise<any>;
+  updateGameRoom(id: string, data: any): Promise<any>;
+  deleteGameRoom(id: string): Promise<void>;
+  
+  // Payment Transactions
+  getPaymentTransactions(params: any): Promise<any>;
+  createPaymentTransaction(data: any): Promise<any>;
+  updatePaymentTransaction(id: string, data: any): Promise<any>;
+  
+  // XP Boosters
+  getXpBoosters(): Promise<any[]>;
+  createXpBooster(data: any): Promise<any>;
+  updateXpBooster(id: string, data: any): Promise<any>;
+  
+  // News
+  getNews(): Promise<any[]>;
+  createNews(data: any): Promise<any>;
+  updateNews(id: string, data: any): Promise<any>;
+  deleteNews(id: string): Promise<void>;
+  
+  // Pairing Services
+  getPairingServices(): Promise<any[]>;
+  createPairingService(data: any): Promise<any>;
 }
 
 export class MemStorage implements IStorage {
@@ -125,6 +151,11 @@ export class MemStorage implements IStorage {
   private antiCheatLogs: Map<string, AntiCheatLog>;
   private dailyRewards: Map<string, DailyReward>;
   private events: Map<string, Event>;
+  private gameRooms: Map<string, any>;
+  private paymentTransactions: Map<string, any>;
+  private xpBoosters: Map<string, any>;
+  private news: Map<string, any>;
+  private pairingServices: Map<string, any>;
 
   constructor() {
     this.users = new Map();
@@ -136,6 +167,11 @@ export class MemStorage implements IStorage {
     this.antiCheatLogs = new Map();
     this.dailyRewards = new Map();
     this.events = new Map();
+    this.gameRooms = new Map();
+    this.paymentTransactions = new Map();
+    this.xpBoosters = new Map();
+    this.news = new Map();
+    this.pairingServices = new Map();
 
     this.initializeDefaultData();
   }
@@ -171,13 +207,13 @@ export class MemStorage implements IStorage {
       this.dailyRewards.set(id, { ...reward, id });
     });
 
-    // Initialize sample players
+    // Initialize sample players - kosongkan koin dan gems
     const samplePlayers = [
-      { username: "PlayerOne", email: "player1@example.com", level: 15, xp: 12450, coins: 125000, gems: 250, rankedPoints: 1250, tier: "Gold", totalWins: 85, totalLosses: 45, status: "active" },
-      { username: "DominoMaster", email: "master@example.com", level: 28, xp: 28750, coins: 287500, gems: 575, rankedPoints: 2150, tier: "Platinum", totalWins: 156, totalLosses: 34, status: "active" },
-      { username: "CardShark", email: "shark@example.com", level: 35, xp: 41250, coins: 412500, gems: 825, rankedPoints: 2850, tier: "Master", totalWins: 234, totalLosses: 56, status: "active" },
-      { username: "GameLegend", email: "legend@example.com", level: 42, xp: 58900, coins: 589000, gems: 1200, rankedPoints: 3250, tier: "Legend", totalWins: 389, totalLosses: 34, status: "active" },
-      { username: "Beginner123", email: "beginner@example.com", level: 3, xp: 650, coins: 6500, gems: 15, rankedPoints: 150, tier: "Bronze", totalWins: 12, totalLosses: 18, status: "active" },
+      { username: "PlayerOne", email: "player1@example.com", level: 15, xp: 12450, coins: 0, gems: 0, rankedPoints: 1250, tier: "Gold", totalWins: 85, totalLosses: 45, status: "active", unityPlayerId: "unity_001", minLevelForRanked: 5 },
+      { username: "DominoMaster", email: "master@example.com", level: 28, xp: 28750, coins: 0, gems: 0, rankedPoints: 2150, tier: "Platinum", totalWins: 156, totalLosses: 34, status: "active", unityPlayerId: "unity_002", minLevelForRanked: 5 },
+      { username: "CardShark", email: "shark@example.com", level: 35, xp: 41250, coins: 0, gems: 0, rankedPoints: 2850, tier: "Master", totalWins: 234, totalLosses: 56, status: "active", unityPlayerId: "unity_003", minLevelForRanked: 5 },
+      { username: "GameLegend", email: "legend@example.com", level: 42, xp: 58900, coins: 0, gems: 0, rankedPoints: 3250, tier: "Legend", totalWins: 389, totalLosses: 34, status: "active", unityPlayerId: "unity_004", minLevelForRanked: 5 },
+      { username: "Beginner123", email: "beginner@example.com", level: 3, xp: 650, coins: 0, gems: 0, rankedPoints: 150, tier: "Bronze", totalWins: 12, totalLosses: 18, status: "active", unityPlayerId: "unity_005", minLevelForRanked: 5 },
     ];
 
     samplePlayers.forEach(player => {
@@ -258,6 +294,54 @@ export class MemStorage implements IStorage {
         });
       });
     }
+
+    // Initialize Game Rooms
+    const sampleGameRooms = [
+      { name: "Training Single", type: "training_single", description: "Ruang latihan untuk pemain tunggal", minLevel: 1, entryFee: 0, entryFeeCurrency: "coins", maxPlayers: 1, isActive: true },
+      { name: "Training Double", type: "training_double", description: "Ruang latihan untuk pemain berpasangan", minLevel: 1, entryFee: 0, entryFeeCurrency: "coins", maxPlayers: 2, isActive: true },
+      { name: "Ranked Match", type: "ranked", description: "Pertandingan berperingkat untuk naik tier", minLevel: 5, entryFee: 100, entryFeeCurrency: "coins", maxPlayers: 2, isActive: true },
+      { name: "Tournament Room", type: "tournament", description: "Ruang khusus turnamen", minLevel: 10, entryFee: 500, entryFeeCurrency: "gems", maxPlayers: 8, isActive: true },
+      { name: "Pairing Service", type: "pairing", description: "Layanan pairing dengan izin Kemensos", minLevel: 1, entryFee: 0, entryFeeCurrency: "coins", maxPlayers: 2, isActive: true },
+    ];
+
+    sampleGameRooms.forEach(room => {
+      const id = randomUUID();
+      this.gameRooms.set(id, { ...room, id, createdAt: new Date() });
+    });
+
+    // Initialize News/Berita
+    const sampleNews = [
+      { title: "Selamat Datang di Dobel Domino!", content: "Game domino terbaru dengan fitur lengkap dan grafik memukau.", imageUrl: "/assets/news1.jpg", priority: 1, isActive: true },
+      { title: "Event Double XP Weekend", content: "Dapatkan XP berlipat ganda setiap akhir pekan!", imageUrl: "/assets/news2.jpg", priority: 2, isActive: true },
+      { title: "Tournament Bulanan Dimulai", content: "Daftarkan diri Anda dalam turnamen bulanan dengan hadiah menarik.", imageUrl: "/assets/news3.jpg", priority: 3, isActive: true },
+      { title: "Update Fitur Baru", content: "Nikmati fitur-fitur baru dalam update terbaru Dobel Domino.", imageUrl: "/assets/news4.jpg", priority: 4, isActive: true },
+    ];
+
+    sampleNews.forEach(newsItem => {
+      const id = randomUUID();
+      this.news.set(id, { ...newsItem, id, createdAt: new Date() });
+    });
+
+    // Initialize XP Boosters
+    const sampleXpBoosters = [
+      { playerId: players[0].id, multiplier: 2, duration: 7, price: 10000, isActive: true, purchasedAt: new Date(), expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) },
+      { playerId: players[1].id, multiplier: 2, duration: 7, price: 10000, isActive: false, purchasedAt: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000), expiresAt: new Date(Date.now() - 24 * 60 * 60 * 1000) },
+    ];
+
+    sampleXpBoosters.forEach(booster => {
+      const id = randomUUID();
+      this.xpBoosters.set(id, { ...booster, id });
+    });
+
+    // Initialize Pairing Services
+    const samplePairingServices = [
+      { serviceName: "Pairing Service Official", description: "Layanan pairing resmi dengan izin lengkap", licenseCert: "CERT-2024-001", isVerified: true, contactInfo: { email: "official@dobeldomino.com", phone: "021-12345678" } },
+    ];
+
+    samplePairingServices.forEach(service => {
+      const id = randomUUID();
+      this.pairingServices.set(id, { ...service, id, createdAt: new Date() });
+    });
   }
 
   // Users
@@ -664,6 +748,147 @@ export class MemStorage implements IStorage {
       totalBanned,
       avgResponseTime
     };
+  }
+
+  // Game Rooms
+  async getGameRooms(): Promise<any[]> {
+    return Array.from(this.gameRooms.values()).sort((a, b) => a.priority - b.priority);
+  }
+
+  async createGameRoom(data: any): Promise<any> {
+    const id = randomUUID();
+    const room = { ...data, id, createdAt: new Date() };
+    this.gameRooms.set(id, room);
+    return room;
+  }
+
+  async updateGameRoom(id: string, data: any): Promise<any> {
+    const existing = this.gameRooms.get(id);
+    if (!existing) {
+      throw new Error("Game room not found");
+    }
+    const updated = { ...existing, ...data };
+    this.gameRooms.set(id, updated);
+    return updated;
+  }
+
+  async deleteGameRoom(id: string): Promise<void> {
+    this.gameRooms.delete(id);
+  }
+
+  // Payment Transactions
+  async getPaymentTransactions(params: any): Promise<any> {
+    let transactions = Array.from(this.paymentTransactions.values());
+    
+    if (params.status && params.status !== 'all') {
+      transactions = transactions.filter(t => t.status === params.status);
+    }
+    
+    if (params.paymentMethod && params.paymentMethod !== 'all') {
+      transactions = transactions.filter(t => t.paymentMethod === params.paymentMethod);
+    }
+
+    const total = transactions.length;
+    const limit = parseInt(params.limit) || 50;
+    const offset = parseInt(params.offset) || 0;
+    
+    transactions = transactions.slice(offset, offset + limit);
+
+    return { transactions, total };
+  }
+
+  async createPaymentTransaction(data: any): Promise<any> {
+    const id = randomUUID();
+    const transaction = { 
+      ...data, 
+      id, 
+      transactionId: `TXN-${Date.now()}`,
+      createdAt: new Date() 
+    };
+    this.paymentTransactions.set(id, transaction);
+    return transaction;
+  }
+
+  async updatePaymentTransaction(id: string, data: any): Promise<any> {
+    const existing = this.paymentTransactions.get(id);
+    if (!existing) {
+      throw new Error("Payment transaction not found");
+    }
+    const updated = { ...existing, ...data };
+    if (data.status === 'completed') {
+      updated.completedAt = new Date();
+    }
+    this.paymentTransactions.set(id, updated);
+    return updated;
+  }
+
+  // XP Boosters
+  async getXpBoosters(): Promise<any[]> {
+    return Array.from(this.xpBoosters.values()).sort((a, b) => 
+      new Date(b.purchasedAt).getTime() - new Date(a.purchasedAt).getTime()
+    );
+  }
+
+  async createXpBooster(data: any): Promise<any> {
+    const id = randomUUID();
+    const booster = { 
+      ...data, 
+      id, 
+      purchasedAt: new Date(),
+      expiresAt: new Date(Date.now() + (data.duration || 7) * 24 * 60 * 60 * 1000)
+    };
+    this.xpBoosters.set(id, booster);
+    return booster;
+  }
+
+  async updateXpBooster(id: string, data: any): Promise<any> {
+    const existing = this.xpBoosters.get(id);
+    if (!existing) {
+      throw new Error("XP booster not found");
+    }
+    const updated = { ...existing, ...data };
+    this.xpBoosters.set(id, updated);
+    return updated;
+  }
+
+  // News
+  async getNews(): Promise<any[]> {
+    return Array.from(this.news.values()).sort((a, b) => b.priority - a.priority);
+  }
+
+  async createNews(data: any): Promise<any> {
+    const id = randomUUID();
+    const newsItem = { ...data, id, createdAt: new Date() };
+    this.news.set(id, newsItem);
+    return newsItem;
+  }
+
+  async updateNews(id: string, data: any): Promise<any> {
+    const existing = this.news.get(id);
+    if (!existing) {
+      throw new Error("News not found");
+    }
+    const updated = { ...existing, ...data };
+    this.news.set(id, updated);
+    return updated;
+  }
+
+  async deleteNews(id: string): Promise<void> {
+    this.news.delete(id);
+  }
+
+  // Pairing Services
+  async getPairingServices(): Promise<any[]> {
+    return Array.from(this.pairingServices.values()).sort((a, b) => 
+      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+  }
+
+  async createPairingService(data: any): Promise<any> {
+    const id = randomUUID();
+    const service = { ...data, id, createdAt: new Date() };
+    this.pairingServices.set(id, service);
+    return service;
   }
 }
 

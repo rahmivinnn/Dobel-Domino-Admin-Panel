@@ -11,6 +11,10 @@ import Tournaments from "@/pages/tournaments";
 import Rewards from "@/pages/rewards";
 import Leaderboard from "@/pages/leaderboard";
 import Monitoring from "@/pages/monitoring";
+import GameRooms from "@/pages/game-rooms";
+import PaymentGateway from "@/pages/payment-gateway";
+import News from "@/pages/news";
+import XpBoosters from "@/pages/xp-boosters";
 import NotFound from "@/pages/not-found";
 import Sidebar from "@/components/layout/sidebar";
 import Header from "@/components/layout/header";
@@ -31,6 +35,10 @@ function Router() {
             <Route path="/rewards" component={Rewards} />
             <Route path="/leaderboard" component={Leaderboard} />
             <Route path="/monitoring" component={Monitoring} />
+            <Route path="/game-rooms" component={GameRooms} />
+            <Route path="/payment-gateway" component={PaymentGateway} />
+            <Route path="/news" component={News} />
+            <Route path="/xp-boosters" component={XpBoosters} />
             <Route component={NotFound} />
           </Switch>
         </main>
